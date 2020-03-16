@@ -1,0 +1,40 @@
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+public class Main {
+	public static String getStr(int a){
+		String ret = "";
+		while(a!= 0)
+		{
+			char nw = (char)((a%10)+'0');
+			ret += nw;
+			a/=10;
+		}
+		StringBuilder temp = new StringBuilder(ret);
+		temp.reverse();
+		ret = temp.toString();
+		return ret;
+	}
+	public static void main(String[] args) throws AWTException, IOException, InterruptedException {
+		// TODO Auto-generated method stub
+		String s;
+		int cnt = 1;
+		while(true)
+		{
+			Thread.sleep(1000*5);
+			s = "/Users/Tanzir5/Desktop/PhotoBase/" + "Pic" + getStr(cnt);
+			//System.out.println(s);
+			Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+			BufferedImage capture = new Robot().createScreenCapture(screenRect);
+			ImageIO.write(capture, "jpeg", new File(s));
+			cnt++;
+		}
+	}
+}
